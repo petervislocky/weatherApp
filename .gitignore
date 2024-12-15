@@ -2,4 +2,6 @@ venv/
 
 __pychache__/
 
+weather/__pychache__
+
 .env
