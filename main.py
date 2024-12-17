@@ -1,12 +1,13 @@
-from weather.api import get_weather
+from weather.weather_flow import WeatherFlow
 
 
 def main():
+    wf = WeatherFlow()
     try:
         while True:
             try:
                 city = input("City: ")
-                weather = get_weather(city)
+                weather = wf.get_weather(city)
                 print(weather)
                 break
             except Exception as e:
