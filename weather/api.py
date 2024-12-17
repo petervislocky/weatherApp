@@ -2,7 +2,7 @@ import requests
 from weather.config import API_KEY
 
 def get_weather(city):
-    """ Uses the api key to return a json of the weather data in the given city"""
+    """ Uses the api key to return a dictionary of the weather data in the given city"""
     if not city:
         raise ValueError("City name cannot be empty")
         
