@@ -3,18 +3,16 @@ from weather.config import API_KEY
 
 def get_weather(city):
     """ Uses the api key to return a json of the weather data in the given city"""
-    try:    
-        if not city:
-            raise ValueError("City name cannot be empty")
+    if not city:
+        raise ValueError("City name cannot be empty")
         
-        url = f"https://api.weatherapi.com/v1/current.json?key={API_KEY}&q={city}"
-        response = requests.get(url)
+    url = f"https://api.weatherapi.com/v1/current.json?key={API_KEY}&q={city}"
+    response = requests.get(url)
 
-        #raise an error if the response is not successful
-        response.raise_for_status()\
+    #raise an error if the response is not successful
+    response.raise_for_status()\
         
-        return response.json()
-    except:
-        print("Invalid city")
-        return response.json()
+    return response.json()
+
+
     
