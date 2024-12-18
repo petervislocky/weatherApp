@@ -7,7 +7,9 @@ class WeatherFlow:
         pass
 
     def get_weather(self, city):
-        """ Uses the api key to return a dictionary of the weather data in the given city"""
+        """
+        Uses the api key to return a dictionary of the weather data in the given city
+        """
         if not city:
             raise ValueError("City name cannot be empty")
             
@@ -19,4 +21,30 @@ class WeatherFlow:
             
         return response.json()
 
+    def parse_weather(self, weather):
+        """
+        Parses weather dictionary from API and returns extracted data
+        """
+        location = weather.get("location", {})
+        current =  weather.get("current", {})
+        condition = current.get("condition", {})
+
+        if location is None or current is None or condition is None:
+            print("Error: Missing essential weather data, program will not function as intended without it.")
+            try_again = input("Would you like to try another city? y/n: ")
+                    
+            if try_again.lower() == "y":
+                return True
+            elif try_again.lower == "n":
+                print("Exiting...")
+                return False
+            else:
+                print("Another key was pressed, exiting...")
+                return False
+
+        name, region = location.get("name", "Unknown"), location.get("region", "Unknown")
+        temp_c, temp_f = current.get("temp_c", "Unknown temp"), current.get("temp_f", "Unknown temp" )
+        text = condition.get("text", "Unknown condition")
+        
+        return name, region, temp_c, temp_f, text
     
