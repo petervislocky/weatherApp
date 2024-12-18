@@ -1,6 +1,7 @@
 from weather.weather_flow import WeatherFlow
 
 #TODO add more information to weather_flow.parse_weather()
+#TODO use google geolocating API to get user location
 
 def mainloop(wf):
     try:
