@@ -1,6 +1,6 @@
 from weather.weather_flow import WeatherFlow
 
-
+#TODO add more information to weather_flow.parse_weather()
 
 def mainloop(wf):
     try:
