@@ -16,7 +16,7 @@ class WeatherFlow:
         url = f"https://api.weatherapi.com/v1/current.json?key={API_KEY}&q={city}"
         response = requests.get(url)
 
-        #raise an error if the response is not successful
+        # Raise an error if the response is not successful
         response.raise_for_status()\
             
         return response.json()
@@ -44,7 +44,7 @@ class WeatherFlow:
 
         name, region = location.get("name", "Unknown"), location.get("region", "Unknown")
         temp_c, temp_f = current.get("temp_c", "Unknown temp"), current.get("temp_f", "Unknown temp" )
-        text = condition.get("text", "Unknown condition")
+        text, icon = condition.get("text", "Unknown condition"), condition.get("icon", "Icon unavailable")
         
-        return name, region, temp_c, temp_f, text
+        return name, region, temp_c, temp_f, text, icon
     
