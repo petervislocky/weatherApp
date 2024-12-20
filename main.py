@@ -19,8 +19,8 @@ def mainloop(wf):
                 
                 name, region, temp_c, temp_f, text, icon = parsed
 
-                #for debugging
-                #print("Full JSON response: ", weather)
+                # for debugging
+                # print("Full JSON response: ", weather)
                 
                 print(f"Showing weather for {name}, {region}")
                 print(f"Temp >> {temp_f}\u00b0F / {temp_c}\u00b0C")
