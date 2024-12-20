@@ -11,7 +11,7 @@ def ascii_icon(iconUrl):
         if not art:
             print("Error occured, ASCII art could not be generated")
 
-        return art.to_ascii(columns=32)
+        return art.to_terminal(columns=32)
     
     except OSError as e:
         print(f"Error occured {e} ")
