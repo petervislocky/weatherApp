@@ -14,7 +14,7 @@ class WeatherFlow:
             raise ValueError("City name cannot be empty")
             
         current_weather_url = f"https://api.weatherapi.com/v1/current.json?key={API_KEY}&q={location}"
-        forecast_weather_url = f"https://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={location}"
+        forecast_weather_url = f"https://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={location}&days=7&aqi=no&alerts=no"
         current_weather_response = requests.get(current_weather_url)
         forecast_weather_response = requests.get(forecast_weather_url)
 
