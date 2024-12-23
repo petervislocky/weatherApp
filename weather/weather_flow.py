@@ -1,4 +1,5 @@
 import requests
+
 from weather.config import API_KEY
 
 class WeatherFlow:
