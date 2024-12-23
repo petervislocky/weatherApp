@@ -1,43 +1,52 @@
+import requests
+
 from weather.weather_flow import WeatherFlow
 from weather.ASCIIicons import ascii_icon
 
 #TODO use google geolocating API to get user location
-#TODO create a new method to parse forcast_weather
+#TODO create a new method to parse forcast weather
+#TODO include input sanitization to clean up user input to prevent malformed or unexpected input
+#TODO Try to get the ascii_magic art to print next to the text output instead of underneath it
 
 def mainloop(wf):
     try:
         while True:
             try:
                 location = input("City, State >> ")
-                """
-                forecast_weather holds the dictionary with the weather forcast values, its not being used yet, but its been implemented so
-                all that needs to be done is to create a separate method for parsing forcast data because the dictionary values
-                """
-                current_weather, forecast_weather = wf.get_weather(location)
-                parsed = wf.parse_weather(current_weather)
 
-                if parsed is True:
+                # Feeding location to the API via get_weather method
+                weather = wf.get_weather(location)
+                # Parsing current weather data returned by API
+                current_parsed = wf.parse_weather(weather)
+
+                if current_parsed is True:
                     continue
-                elif parsed is False:
+                elif current_parsed is False:
                     break
                 
-                name, region, temp_c, temp_f, text, icon, feelslike_c, feelslike_f, wind_mph = parsed
+                name, region, temp_c, temp_f, text, icon, feelslike_c, feelslike_f, wind_mph = current_parsed
 
                 # For debugging
-                # print("Full JSON response: ", current_weather)
+                # print("Full JSON response: ", weather)
                 # print("Forcast", forecast_weather)
                 
-                print(f"Showing weather for {name}, {region}")
-                print(f"Temp >> {temp_f}\u00b0F / {temp_c}\u00b0C")
-                print(f"Feels like >> {feelslike_f}\u00b0F / {feelslike_c}\u00b0C")
-                print(f"Wind >> {wind_mph}mph")
-                print(f"Conditions >> {text} ")
+                print(f"Showing weather for {name}, {region}\n"
+                      f"Temp >> {temp_f}\u00b0F / {temp_c}\u00b0C\n"
+                      f"Feels like >> {feelslike_f}\u00b0F / {feelslike_c}\u00b0C\n"
+                      f"Wind >> {wind_mph}mph\n"
+                      f"Conditions >> {text} ")
                 ascii_icon(icon)
                 break
 
+            except ValueError as e:
+                print(f"Data error: {e}")
+            except requests.exceptions.RequestException as e:
+                print(f"HTTP/HTTPS request error: {e}\nCommon causes for this error are,\n"
+                      "Inputting a location that does not exist\n"
+                      "No internet connection\n"
+                      "Server-side errors")
             except Exception as e:
-                print("Invalid entry try again ")
-                continue
+                print(f"Unexpected error occured: {e}")
             
     except KeyboardInterrupt as k:
         print("\nKeyboard interrupt detected, exiting program ")

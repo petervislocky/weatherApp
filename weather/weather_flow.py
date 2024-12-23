@@ -12,17 +12,14 @@ class WeatherFlow:
         """
         if not location:
             raise ValueError("City name cannot be empty")
-            
-        current_weather_url = f"https://api.weatherapi.com/v1/current.json?key={API_KEY}&q={location}"
-        forecast_weather_url = f"https://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={location}&days=7&aqi=no&alerts=no"
-        current_weather_response = requests.get(current_weather_url)
-        forecast_weather_response = requests.get(forecast_weather_url)
+
+        weather_url = f"https://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={location}&days=7&aqi=no&alerts=no"
+        weather_response = requests.get(weather_url)
 
         # Raise an error if responses are not successful
-        current_weather_response.raise_for_status()
-        forecast_weather_response.raise_for_status()
+        weather_response.raise_for_status()
 
-        return current_weather_response.json(), forecast_weather_response.json()
+        return weather_response.json()
 
     def parse_weather(self, weather):
         """
@@ -32,19 +29,9 @@ class WeatherFlow:
         current =  weather.get("current", {})
         condition = current.get("condition", {})
 
-        # Checks if location data is missing and prompts user to try again if yes. Possibly remove this logic
+        # Checks if location data is missing
         if location is None or current is None or condition is None:
-            print("Error: Missing essential weather data, program will not function as intended without it.")
-            try_again = input("Would you like to try another location? y/n: ")
-                    
-            if try_again.lower() == "y":
-                return True
-            elif try_again.lower == "n":
-                print("Exiting...")
-                return False
-            else:
-                print("Another key was pressed, exiting...")
-                return False
+            raise ValueError("Weather data from API was not returned, and cannot be parsed, as expected")
 
         # Retreiving items from dictionary returned from API and returning them as a tuple
         name, region = location.get("name", "Unknown"), location.get("region", "Unknown")
@@ -57,6 +44,7 @@ class WeatherFlow:
         return name, region, temp_c, temp_f, text, icon, feelslike_c, feelslike_f, wind_mph
     
     def parse_forcast(self, forcast):
-        """TODO
-        create new method for parsing forcast data to avoid cluttering up parse_weather()"""
+        """
+        Parses forcast for the week from the API call
+        """
         pass
