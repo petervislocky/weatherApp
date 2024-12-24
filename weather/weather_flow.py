@@ -7,7 +7,7 @@ class WeatherFlow:
     def __init__(self):
         pass
 
-    def get_weather(self, location):
+    def get_weather(self, location) -> str:
         """
         Uses the api key to return a dictionary of the weather data in the given location
         """
@@ -22,7 +22,7 @@ class WeatherFlow:
 
         return weather_response.json()
 
-    def parse_weather(self, weather):
+    def parse_weather(self, weather) -> str:
         """
         Parses weather dictionary from API and returns extracted data
         """
@@ -44,8 +44,18 @@ class WeatherFlow:
 
         return name, region, temp_c, temp_f, text, icon, feelslike_c, feelslike_f, wind_mph
     
-    def parse_forcast(self, forcast):
+    def parse_forecast(self, forcast) -> None:
         """
-        Parses forcast for the week from the API call
+        Parses forcast for the week from the API call, loops through values and prints to console
         """
-        pass
+        forcast_days = forcast.get("forecast", {}).get("forecastday", [])
+
+        # Loop through the list value linked to the key, "forecastday" in the api json dictionary response and store needed values
+        for day in forcast_days:
+            date = day.get("date", "Date unavailable")
+            condition = day.get("day", {}).get("condition", {}).get("text", "Condition not available")
+            maxtemp_f = day.get("day", {}).get("maxtemp_f")
+            mintemp_f = day.get("day", {}).get("mintemp_f")
+            avgtemp_f = day.get("day", {}).get("avgtemp_f")
+
+            print(f"Forecast for {date} >> {condition}: {maxtemp_f}\u00b0F/{mintemp_f}\u00b0F Avg: {avgtemp_f}\u00b0F")

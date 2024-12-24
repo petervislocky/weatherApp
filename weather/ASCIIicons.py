@@ -1,7 +1,9 @@
 import ascii_magic
 
+from typing import Optional
 
-def ascii_icon(iconUrl):
+
+def ascii_icon(iconUrl) -> Optional[str]:
     """
     Takes icon(png) url as params and return ascii art of the png
     """
