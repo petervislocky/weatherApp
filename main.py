@@ -19,12 +19,6 @@ def mainloop(wf) -> None:
                 # Parsing current weather data returned by API
                 current_parsed = wf.parse_weather(weather)
               
-
-                if current_parsed is True:
-                    continue
-                elif current_parsed is False:
-                    break
-                
                 # Assigned values returned from parse_weather and parse_forecast
                 name, region, temp_c, temp_f, text, icon, feelslike_c, feelslike_f, wind_mph = current_parsed
 

@@ -13,7 +13,7 @@ def ascii_icon(iconUrl) -> Optional[str]:
         if not art:
             print("Error occured, ASCII art could not be generated")
 
-        return art.to_terminal(columns=60)
+        return art.to_terminal(columns=50)
     
     except OSError as e:
         print(f"Error occured {e} ")
