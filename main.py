@@ -32,6 +32,7 @@ def mainloop(wf) -> None:
                       f"Conditions >> {text} ")
                 ascii_icon(icon)
                 # Call parse_weather to loop through forecast values and print to console
+                print("Next week forecast\n")
                 wf.parse_forecast(weather)
                 break
 
