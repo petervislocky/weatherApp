@@ -58,4 +58,4 @@ class WeatherFlow:
             mintemp_f = day.get("day", {}).get("mintemp_f")
             avgtemp_f = day.get("day", {}).get("avgtemp_f")
 
-            print(f"Forecast for {date} >> {condition}: {maxtemp_f}\u00b0F/{mintemp_f}\u00b0F Avg: {avgtemp_f}\u00b0F")
+            print(f"Forecast for {date} >> {condition}: {maxtemp_f}\u00b0F/{mintemp_f}\u00b0F Avg: {avgtemp_f}\u00b0F \n")
