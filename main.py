@@ -4,7 +4,6 @@ from weather.weather_flow import WeatherFlow
 from weather.ASCIIicons import ascii_icon
 
 #TODO use google geolocating API to get user location
-#TODO create a new method to parse forcast weather
 #TODO include input sanitization to clean up user input to prevent malformed or unexpected input
 #TODO Try to get the ascii_magic art to print next to the text output instead of underneath it
 
