@@ -54,14 +54,16 @@ class WeatherFlow:
         # Loop through the list value linked to the key, "forecastday" in the api json dictionary response and store needed values
         for day in forcast_days:
             date = day.get("date", "Date unavailable")
+            day_of_week = WeatherFlow._get_day_of_week(date)    # Getting day of week from date
             condition = day.get("day", {}).get("condition", {}).get("text", "Condition not available")
             maxtemp_f = day.get("day", {}).get("maxtemp_f")
             mintemp_f = day.get("day", {}).get("mintemp_f")
             avgtemp_f = day.get("day", {}).get("avgtemp_f")
 
-            print(f"Forecast for {date} >> {condition}: {maxtemp_f}\u00b0F/{mintemp_f}\u00b0F Avg: {avgtemp_f}\u00b0F \n")
+            print(f"Forecast for {day_of_week}, {date} >> {condition}: {maxtemp_f}\u00b0F/{mintemp_f}\u00b0F Avg: {avgtemp_f}\u00b0F \n")
 
-    def _get_day_of_week(self, date: str) -> str:
+    @staticmethod
+    def _get_day_of_week(date: str) -> str:
         """
         Helper method that returns day of the week from a day given in YYYY-MM-DD fromat
         """

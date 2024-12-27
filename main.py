@@ -13,16 +13,13 @@ def mainloop(wf) -> None:
             try:
                 location = input("City, State >> ")
 
-                # Feeding location to the API via get_weather method
-                weather = wf.get_weather(location)
-                # Parsing current weather data returned by API
-                current_parsed = wf.parse_weather(weather)
+                weather = wf.get_weather(location)   # Feeding location to the API via get_weather method
+                current_parsed = wf.parse_weather(weather)  # Parsing current weather data returned by API
               
                 # Assigned values returned from parse_weather and parse_forecast
                 name, region, temp_c, temp_f, text, icon, feelslike_c, feelslike_f, wind_mph = current_parsed
-
-                # For debugging
-                # print("Full JSON response: ", weather)
+                
+                # print("Full JSON response: ", weather)    # For debugging
                 
                 print(f"Showing weather for {name}, {region}\n"
                       f"Temp >> {temp_f}\u00b0F / {temp_c}\u00b0C\n"
