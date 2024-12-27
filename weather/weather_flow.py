@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime
 
 from weather.config import API_KEY
 
@@ -59,3 +60,9 @@ class WeatherFlow:
             avgtemp_f = day.get("day", {}).get("avgtemp_f")
 
             print(f"Forecast for {date} >> {condition}: {maxtemp_f}\u00b0F/{mintemp_f}\u00b0F Avg: {avgtemp_f}\u00b0F \n")
+
+    def _get_day_of_week(self, date: str) -> str:
+        """
+        Helper method that returns day of the week from a day given in YYYY-MM-DD fromat
+        """
+        return datetime.strptime(date, "%Y-%m-%d").strftime("%A")
