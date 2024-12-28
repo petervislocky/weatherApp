@@ -1,14 +1,16 @@
 import requests
 from datetime import datetime
+from typing import Any
 
 from weather.config import API_KEY
+from weather.types import WeatherDict
 
 class WeatherFlow:
     
     def __init__(self):
         pass
 
-    def get_weather(self, location) -> str:
+    def get_weather(self, location: str) -> dict:
         """
         Uses the api key to return a dictionary of the weather data in the given location
         """
@@ -23,7 +25,7 @@ class WeatherFlow:
 
         return weather_response.json()
 
-    def parse_weather(self, weather) -> str:
+    def parse_weather(self, weather: WeatherDict) -> tuple[str, str, float, float, str, str, float, float, float]:
         """
         Parses weather dictionary from API and returns extracted data
         """
