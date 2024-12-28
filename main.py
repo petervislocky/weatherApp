@@ -8,6 +8,9 @@ from weather.ASCIIicons import ascii_icon
 #TODO Try to get the ascii_magic art to print next to the text output instead of underneath it
 
 def mainloop(wf) -> None:
+    """
+    Main program logic
+    """
     try:
         while True:
             try:
