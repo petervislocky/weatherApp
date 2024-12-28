@@ -3,16 +3,41 @@ from datetime import datetime
 from typing import Any
 
 from weather.config import API_KEY
-from weather.types import WeatherDict
 
 class WeatherFlow:
     
     def __init__(self):
         pass
 
-    def get_weather(self, location: str) -> dict:
+    def get_weather(self, location: str) -> dict[str, Any]:
         """
-        Uses the api key to return a dictionary of the weather data in the given location
+        Uses the api key to return a json/dictionary of the weather data in the given location.
+        Days of week are hardcoded as well as alert toggle and aqi toggle.
+        
+        Return type contains nested dictionaries and lists with str type keys
+        Example return value structure:
+            {
+    "location": {
+        "name": "New York",
+        "region": "New York",
+        "country": "United States of America",
+        "lat": 40.7142,
+        "lon": -74.0064,
+        "tz_id": "America/New_York",
+        "localtime_epoch": 1735354653,
+        "localtime": "2024-12-27 21:57"
+    },
+    "current": {
+        "last_updated_epoch": 1735353900,
+        "last_updated": "2024-12-27 21:45",
+        "temp_c": 5.1,
+        "temp_f": 41.2,
+        "is_day": 0,
+        "condition": {
+            "text": "Partly cloudy",
+            "icon": "//cdn.weatherapi.com/weather/64x64/night/116.png",
+            "code": 1003
+        }, ...
         """
         if not location:
             raise ValueError("City name cannot be empty")
@@ -25,9 +50,10 @@ class WeatherFlow:
 
         return weather_response.json()
 
-    def parse_weather(self, weather: WeatherDict) -> tuple[str, str, float, float, str, str, float, float, float]:
+    def parse_weather(self, weather: dict) -> tuple[str, str, float, float, str, str, float, float, float]:
         """
-        Parses weather dictionary from API and returns extracted data
+        Parses weather dictionary from API and returns extracted data.
+        Params: Expects json that is returned from API call made in get_weather.
         """
         location = weather.get("location", {})
         current =  weather.get("current", {})
@@ -47,9 +73,10 @@ class WeatherFlow:
 
         return name, region, temp_c, temp_f, text, icon, feelslike_c, feelslike_f, wind_mph
     
-    def parse_forecast(self, forcast) -> None:
+    def parse_forecast(self, forcast: dict) -> None:
         """
-        Parses forcast for the week from the API call, loops through values and prints to console
+        Parses forcast for the week from the API call, loops through values and prints to console.
+        Params: Expects json object that is returned from API call in get_weather.
         """
         forcast_days = forcast.get("forecast", {}).get("forecastday", [])
 
