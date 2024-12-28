@@ -10,7 +10,7 @@ class WeatherFlow:
         pass
 
     def get_weather(self, location: str) -> dict[str, Any]:
-        """
+        '''
         Uses the api key to return a json/dictionary of the weather data in the given location.
         Days of week are hardcoded as well as alert toggle and aqi toggle.
         
@@ -38,11 +38,11 @@ class WeatherFlow:
             "icon": "//cdn.weatherapi.com/weather/64x64/night/116.png",
             "code": 1003
         }, ...
-        """
+        '''
         if not location:
-            raise ValueError("City name cannot be empty")
+            raise ValueError('City name cannot be empty')
 
-        weather_url = f"https://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={location}&days=7&aqi=no&alerts=no"
+        weather_url = f'https://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={location}&days=7&aqi=no&alerts=no'
         weather_response = requests.get(weather_url)
 
         # Raise an error if responses are not successful
@@ -51,49 +51,49 @@ class WeatherFlow:
         return weather_response.json()
 
     def parse_weather(self, weather: dict) -> tuple[str, str, float, float, str, str, float, float, float]:
-        """
+        '''
         Parses weather dictionary from API and returns extracted data.
         Params: Expects json that is returned from API call made in get_weather.
-        """
-        location = weather.get("location", {})
-        current =  weather.get("current", {})
-        condition = current.get("condition", {})
+        '''
+        location = weather.get('location', {})
+        current =  weather.get('current', {})
+        condition = current.get('condition', {})
 
         # Checks if location data is missing
         if location is None or current is None or condition is None:
-            raise ValueError("Weather data from API was not returned, and cannot be parsed, as expected")
+            raise ValueError('Weather data from API was not returned, and cannot be parsed, as expected')
 
         # Retreiving items from dictionary returned from API and returning them as a tuple
-        name, region = location.get("name", "Unknown"), location.get("region", "Unknown")
-        temp_c, temp_f = current.get("temp_c", "Unknown temp"), current.get("temp_f", "Unknown temp" )
-        text = condition.get("text", "Unknown condition") 
-        icon = condition.get("icon", "Icon unavailable")
-        feelslike_c, feelslike_f = current.get("feelslike_c", "Unknown"), current.get("feelslike_f", "Unknown")
-        wind_mph = current.get("wind_mph", "Wind speed unknown")
+        name, region = location.get('name', 'Unknown'), location.get('region', 'Unknown')
+        temp_c, temp_f = current.get('temp_c', 'Unknown temp'), current.get('temp_f', 'Unknown temp' )
+        text = condition.get('text', 'Unknown condition') 
+        icon = condition.get('icon', 'Icon unavailable')
+        feelslike_c, feelslike_f = current.get('feelslike_c', 'Unknown'), current.get('feelslike_f', 'Unknown')
+        wind_mph = current.get('wind_mph', 'Wind speed unknown')
 
         return name, region, temp_c, temp_f, text, icon, feelslike_c, feelslike_f, wind_mph
     
     def parse_forecast(self, forcast: dict) -> None:
-        """
+        '''
         Parses forcast for the week from the API call, loops through values and prints to console.
         Params: Expects json object that is returned from API call in get_weather.
-        """
-        forcast_days = forcast.get("forecast", {}).get("forecastday", [])
+        '''
+        forcast_days = forcast.get('forecast', {}).get('forecastday', [])
 
-        # Loop through the list value linked to the key, "forecastday" in the api json dictionary response and store needed values
+        # Loop through the list value linked to the key, 'forecastday' in the api json dictionary response and store needed values
         for day in forcast_days:
-            date = day.get("date", "Date unavailable")
+            date = day.get('date', 'Date unavailable')
             day_of_week = WeatherFlow._get_day_of_week(date)    # Getting day of week from date
-            condition = day.get("day", {}).get("condition", {}).get("text", "Condition not available")
-            maxtemp_f = day.get("day", {}).get("maxtemp_f")
-            mintemp_f = day.get("day", {}).get("mintemp_f")
-            avgtemp_f = day.get("day", {}).get("avgtemp_f")
+            condition = day.get('day', {}).get('condition', {}).get('text', 'Condition not available')
+            maxtemp_f = day.get('day', {}).get('maxtemp_f')
+            mintemp_f = day.get('day', {}).get('mintemp_f')
+            avgtemp_f = day.get('day', {}).get('avgtemp_f')
 
-            print(f"Forecast for {day_of_week}, {date} >> {condition}: {maxtemp_f}\u00b0F/{mintemp_f}\u00b0F Avg: {avgtemp_f}\u00b0F \n")
+            print(f'Forecast for {day_of_week}, {date} >> {condition}: {maxtemp_f}\u00b0F/{mintemp_f}\u00b0F Avg: {avgtemp_f}\u00b0F \n')
 
     @staticmethod
     def _get_day_of_week(date: str) -> str:
-        """
+        '''
         Helper method that returns day of the week from a day given in YYYY-MM-DD fromat
-        """
-        return datetime.strptime(date, "%Y-%m-%d").strftime("%A")
+        '''
+        return datetime.strptime(date, '%Y-%m-%d').strftime('%A')
