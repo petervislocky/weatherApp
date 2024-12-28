@@ -12,6 +12,7 @@ def ascii_icon(icon_url: str) -> Optional[str]:
 
         if not art:
             print('Error occured, ASCII art could not be generated')
+            return None
 
         return art.to_terminal(columns=50)
     
