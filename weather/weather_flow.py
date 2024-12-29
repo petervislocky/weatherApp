@@ -5,7 +5,7 @@ from typing import Any
 from weather.config import API_KEY
 
 class WeatherFlow:
-    
+
     def __init__(self):
         pass
 
@@ -39,10 +39,12 @@ class WeatherFlow:
             "code": 1003
         }, ...
         '''
+        FORECAST_DAYS = 3   # Set to 3 right now because API free tier now limits to 3 day forecast, if this changes this const can be changed
+
         if not location:
             raise ValueError('City name cannot be empty')
 
-        weather_url = f'https://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={location}&days=7&aqi=no&alerts=no'
+        weather_url = f'https://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={location}&days={FORECAST_DAYS}&aqi=no&alerts=no'
         weather_response = requests.get(weather_url)
 
         # Raise an error if responses are not successful
