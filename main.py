@@ -16,16 +16,15 @@ def mainloop(wf) -> None:
             try:
                 location = input('City, State >> ')
 
-                weather = wf.get_weather(location)   # Feeding location to the API via get_weather method
-                current_parsed = wf.parse_weather(weather)  # Parsing current weather data returned by API
+                weather = wf.get_weather(location)    # Feeding location to the API via get_weather method
+                current_parsed = wf.parse_weather(weather)    # Parsing current weather data returned by API
               
                 # Assigned values returned from parse_weather and parse_forecast
                 name, region, temp_c, temp_f, text, icon, feelslike_c, feelslike_f, wind_mph = current_parsed
                 
                 # print('Full JSON response: ', weather)    # For debugging
                 
-                # Generate ascii art and store in var
-                ascii_art_lines = ascii_icon(icon)
+                ascii_art_lines = ascii_icon(icon)    # Generate ascii art and store in var
 
                 # Prepare weather text lines so they can be displayed next to ascii art instead of above it
                 weather_text_lines = [

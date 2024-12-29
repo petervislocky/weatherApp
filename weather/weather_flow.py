@@ -39,7 +39,7 @@ class WeatherFlow:
             "code": 1003
         }, ...
         '''
-        FORECAST_DAYS = 3   # Set to 3 right now because API free tier now limits to 3 day forecast, if this changes this const can be changed
+        FORECAST_DAYS = 3    # Set to 3 right now because API free tier now limits to 3 day forecast, if this changes this const can be changed
 
         if not location:
             raise ValueError('City name cannot be empty')
@@ -82,7 +82,7 @@ class WeatherFlow:
         '''
         forcast_days = forcast.get('forecast', {}).get('forecastday', [])
 
-        # Loop through the list value linked to the key, 'forecastday' in the api json dictionary response and store needed values
+        # Loop through the list value linked to the key, 'forecastday' in the api response and store needed values
         for day in forcast_days:
             date = day.get('date', 'Date unavailable')
             day_of_week = WeatherFlow._get_day_of_week(date)    # Getting day of week from date
