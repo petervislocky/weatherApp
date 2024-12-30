@@ -5,16 +5,16 @@ from weather.ASCIIicons import ascii_icon
 
 #TODO use google geolocating API to get user location
 #TODO include input sanitization to clean up user input to prevent malformed or unexpected input
-#TODO Try to get the ascii_magic art to print next to the text output instead of underneath it
 
-def mainloop(wf) -> None:
+def mainloop(wf: WeatherFlow) -> None:
     '''
     Main program logic
+    Params: WeatherFlow object instance
     '''
     try:
         while True:
             try:
-                location = input('City, State >> ')
+                location = input('City, State/Country >> ')
 
                 weather = wf.get_weather(location)    # Feeding location to the API via get_weather method
                 current_parsed = wf.parse_weather(weather)    # Parsing current weather data returned by API
@@ -26,7 +26,7 @@ def mainloop(wf) -> None:
                 
                 ascii_art_lines = ascii_icon(icon)    # Generate ascii art and store in var
 
-                # Prepare weather text lines so they can be displayed next to ascii art instead of above it
+                # Prepare weather text lines so they can be displayed next to ascii art instead of above it, each line starts with the unicode reset character to remove any color formatting the ascii art library left behind
                 weather_text_lines = [
                     f'\033[0m Showing weather for {name}, {region}',
                       f'\033[0m Temp >> {temp_f}\u00b0F / {temp_c}\u00b0C',

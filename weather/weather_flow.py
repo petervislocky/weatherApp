@@ -87,8 +87,7 @@ class WeatherFlow:
             date = day.get('date', 'Date unavailable')
             day_of_week = WeatherFlow._get_day_of_week(date)    # Getting day of week from date
             condition = day.get('day', {}).get('condition', {}).get('text', 'Condition not available')
-            maxtemp_f = day.get('day', {}).get('maxtemp_f')
-            mintemp_f = day.get('day', {}).get('mintemp_f')
+            maxtemp_f, mintemp_f = day.get('day', {}).get('maxtemp_f'), day.get('day', {}).get('mintemp_f')
             avgtemp_f = day.get('day', {}).get('avgtemp_f')
 
             print(f'Forecast for {day_of_week}, {date} >> {condition}: {maxtemp_f}\u00b0F/{mintemp_f}\u00b0F Avg: {avgtemp_f}\u00b0F \n')
