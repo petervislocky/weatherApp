@@ -39,8 +39,8 @@ class WeatherFlow:
             "code": 1003
         }, ...
         '''
-        FORECAST_DAYS = 3    # Set to 3 right now because API free tier now limits to 3 day forecast, if this changes this const can be changed
-
+        FORECAST_DAYS = 3    # Set to 3 right now because API free tier now limits to 3 day forecast, this can be updated as you see fit
+ 
         if not location:
             raise ValueError('City name cannot be empty')
 
