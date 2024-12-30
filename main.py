@@ -4,7 +4,6 @@ from weather.weather_flow import WeatherFlow
 from weather.ASCIIicons import ascii_icon
 
 #TODO use google geolocating API to get user location
-#TODO include input sanitization to clean up user input to prevent malformed or unexpected input
 
 def mainloop(wf: WeatherFlow) -> None:
     '''
