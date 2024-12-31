@@ -19,7 +19,7 @@ def mainloop(wf: WeatherFlow) -> None:
                 current_parsed = wf.parse_weather(weather)    # Parsing current weather data returned by API
               
                 # Assigned values returned from parse_weather and parse_forecast
-                name, region, temp_c, temp_f, text, icon, feelslike_c, feelslike_f, wind_mph = current_parsed
+                name, region, country, temp_c, temp_f, text, icon, feelslike_c, feelslike_f, wind_mph = current_parsed
                 
                 # print('Full JSON response: ', weather)    # For debugging
                 
@@ -27,7 +27,7 @@ def mainloop(wf: WeatherFlow) -> None:
 
                 # Prepare weather text lines so they can be displayed next to ascii art instead of above it, each line starts with the unicode reset character to remove any color formatting the ascii art library left behind
                 weather_text_lines = [
-                    f'\033[0m Showing weather for {name}, {region}',
+                    f'\033[0m Showing weather for {name}, {region}{', ' + country if country != 'United States of America' else ''}',
                       f'\033[0m Temp >> {temp_f}\u00b0F / {temp_c}\u00b0C',
                       f'\033[0m Feels like >> {feelslike_f}\u00b0F / {feelslike_c}\u00b0C',
                       f'\033[0m Wind >> {wind_mph}mph',

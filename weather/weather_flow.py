@@ -67,13 +67,14 @@ class WeatherFlow:
 
         # Retreiving items from dictionary returned from API and returning them as a tuple
         name, region = location.get('name', 'Unknown'), location.get('region', 'Unknown')
+        country = location.get('country', 'Unknown')
         temp_c, temp_f = current.get('temp_c', 'Unknown temp'), current.get('temp_f', 'Unknown temp' )
         text = condition.get('text', 'Unknown condition') 
         icon = condition.get('icon', 'Icon unavailable')
         feelslike_c, feelslike_f = current.get('feelslike_c', 'Unknown'), current.get('feelslike_f', 'Unknown')
         wind_mph = current.get('wind_mph', 'Wind speed unknown')
 
-        return name, region, temp_c, temp_f, text, icon, feelslike_c, feelslike_f, wind_mph
+        return name, region, country, temp_c, temp_f, text, icon, feelslike_c, feelslike_f, wind_mph
     
     def parse_forecast(self, forcast: dict) -> None:
         '''
