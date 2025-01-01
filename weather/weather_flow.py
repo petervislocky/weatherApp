@@ -1,4 +1,5 @@
 import requests
+import json
 from datetime import datetime
 from typing import Any
 
@@ -11,7 +12,7 @@ class WeatherFlow:
 
     def get_weather(self, location: str) -> dict[str, Any]:
         '''
-        Uses the api key to return a json/dictionary of the weather data in the given location.
+        Makes a request to aws lambda function to make the api call and return a json/dictionary of the weather data in the given location.
         Days of week are hardcoded as well as alert toggle and aqi toggle.
         
         Return type contains nested dictionaries and lists with str type keys
@@ -39,18 +40,25 @@ class WeatherFlow:
             "code": 1003
         }, ...
         '''
-        FORECAST_DAYS = 3    # Set to 3 right now because API free tier now limits to 3 day forecast, this can be updated as you see fit
- 
-        if not location:
-            raise ValueError('City name cannot be empty')
+        LAMBDA_FUNCTION_URL = 'https://rhou6tbgpwkhrnje5irw5p23wq0kxowe.lambda-url.us-east-2.on.aws/'
 
-        weather_url = f'https://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={location}&days={FORECAST_DAYS}&aqi=no&alerts=no'
-        weather_response = requests.get(weather_url)
+        try:
+            # Prepare payload
+            payload = {
+                'location' : location
+            }
 
-        # Raise an error if responses are not successful
-        weather_response.raise_for_status()
+            print(f'Calling Lambda function with payload: {payload}')   # For debugging
+            # Make request to lambda function
+            response = requests.post(LAMBDA_FUNCTION_URL, json=payload)
 
-        return weather_response.json()
+            # Raise an exception if the status code is not 200
+            response.raise_for_status()
+
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            print(f'Error occured calling Lambda function: {e}')
+            return None
 
     def parse_weather(self, weather: dict) -> tuple[str, str, float, float, str, str, float, float, float]:
         '''
