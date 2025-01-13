@@ -4,7 +4,7 @@ from weather.weather_flow import WeatherFlow
 from weather.ASCIIicons import ascii_icon
 
 #TODO use google geolocating API to get user location
-#TODO now that aws lambda function is written, set up a function url and implement it
+#TODO setup flask on ec2 instance to make api calls to weather api and host web server
 
 def mainloop(wf: WeatherFlow) -> None:
     '''
