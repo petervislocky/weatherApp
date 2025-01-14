@@ -40,7 +40,8 @@ class WeatherFlow:
             "code": 1003
         }, ...
         '''
-        LAMBDA_FUNCTION_URL = 'https://rhou6tbgpwkhrnje5irw5p23wq0kxowe.lambda-url.us-east-2.on.aws/'
+        # EC2 instance url
+        EC2_URL = 'http://ec2-3-129-211-177.us-east-2.compute.amazonaws.com:8000/weather'
 
         try:
             # Prepare payload
@@ -48,16 +49,15 @@ class WeatherFlow:
                 'location' : location
             }
 
-            print(f'Calling Lambda function with payload: {payload}')   # For debugging
-            # Make request to lambda function
-            response = requests.post(LAMBDA_FUNCTION_URL, json=payload)
+            # Make request
+            response = requests.post(EC2_URL, json=payload)
 
-            # Raise an exception if the status code is not 200
+            # Raise an exception for HTTP errors
             response.raise_for_status()
 
             return response.json()
         except requests.exceptions.RequestException as e:
-            print(f'Error occured calling Lambda function: {e}')
+            print(f'Error occured: {e}')
             return None
 
     def parse_weather(self, weather: dict) -> tuple[str, str, float, float, str, str, float, float, float]:
