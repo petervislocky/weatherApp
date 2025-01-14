@@ -12,7 +12,7 @@ class WeatherFlow:
 
     def get_weather(self, location: str) -> dict[str, Any]:
         '''
-        Makes a request to aws lambda function to make the api call and return a json/dictionary of the weather data in the given location.
+        Makes a request to aws EC2 server to make the api call and return a json/dictionary of the weather data in the given location.
         Days of week are hardcoded as well as alert toggle and aqi toggle.
         
         Return type contains nested dictionaries and lists with str type keys
