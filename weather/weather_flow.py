@@ -1,9 +1,7 @@
 import requests
-import json
 from datetime import datetime
 from typing import Any
 
-from weather.config import API_KEY
 
 class WeatherFlow:
 
