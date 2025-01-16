@@ -3,7 +3,10 @@ import requests
 from weather.weather_flow import WeatherFlow
 from weather.ASCIIicons import ascii_icon
 
-#TODO use google geolocating API to get user location
+'''
+Docs are pretty extensive because I want to be able to understand what I was doing when I come back to this code in the future, and also to help others understand what I was doing
+Author: @PeterVislocky
+'''
 
 def mainloop(wf: WeatherFlow) -> None:
     '''
