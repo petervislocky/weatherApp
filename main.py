@@ -22,28 +22,12 @@ def mainloop(wf: WeatherFlow) -> None:
                 name, region, country, temp_c, temp_f, text, icon, feelslike_c, feelslike_f, wind_mph = current_parsed
                 
                 # print('Full JSON response: ', weather)    # For debugging
-                
-                ascii_art_lines = ascii_icon(icon)    # Generate ascii art and store in var
-
-                # Prepare weather text lines so they can be displayed next to ascii art instead of above it, each line starts with the unicode reset character to remove any color formatting the ascii art library left behind
-                weather_text_lines = [
-                    f'\033[0m Showing weather for {name}, {region}{', ' + country if country != 'United States of America' else ''}',
-                      f'\033[0m Temp >> {temp_f}\u00b0F / {temp_c}\u00b0C',
-                      f'\033[0m Feels like >> {feelslike_f}\u00b0F / {feelslike_c}\u00b0C',
-                      f'\033[0m Wind >> {wind_mph}mph',
-                      f'\033[0m Conditions >> {text} '
-                ]
-
-                # Join ascii art and the text to be printed into one string
-                print('\n'.join(
-                    f'{ascii_line:<50} {weather_line}'
-                    for ascii_line, weather_line in zip(ascii_art_lines, weather_text_lines)
-                ))
-
-                # Prints remaining lines of ASCII art
-                remaining_ascii = ascii_art_lines[len(weather_text_lines):]
-                for line in remaining_ascii:
-                    print(line)
+                print( f'Showing weather for {name}, {region}{', ' + country if country != 'United States of America' else ''}\n'
+                      f'Temp >> {temp_f}\u00b0F / {temp_c}\u00b0C\n'
+                      f'Feels like >> {feelslike_f}\u00b0F / {feelslike_c}\u00b0C\n'
+                      f'Wind >> {wind_mph}mph\n'
+                      f'Conditions >> {text} ')
+                ascii_icon(icon)
                
                 # Call parse_weather to loop through forecast values and print to console
                 print('3 day forecast\n')
