@@ -36,11 +36,10 @@ class WeatherFlow:
             "code": 1003
         }, ...
         '''
-        # EC2 instance url
         EC2_URL = 'http://ec2-3-129-211-177.us-east-2.compute.amazonaws.com:8000/weather'
 
         try:
-            # Prepare payload
+            # Payload to send to the server
             payload = {
                 'location' : location
             }
