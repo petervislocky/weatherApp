@@ -1,4 +1,5 @@
 import requests
+import argparse
 
 from weather.weather_flow import WeatherFlow
 from weather.ASCIIicons import ascii_icon
@@ -7,8 +8,9 @@ from weather.ASCIIicons import ascii_icon
 Docs are pretty extensive because I want to be able to understand what I was doing when I come back to this code in the future, and also to help others understand what I was doing
 Author: @PeterVislocky
 '''
+#TODO add a command line option to specify farhenheit or celsius
 
-def mainloop(wf: WeatherFlow) -> None:
+def mainloop(wf: WeatherFlow, location: str = None) -> None:
     '''
     Main program logic
     Params: WeatherFlow object instance
@@ -16,7 +18,8 @@ def mainloop(wf: WeatherFlow) -> None:
     try:
         while True:
             try:
-                location = input('City, State/Country >> ')
+                if location is None:    
+                    location = input('Enter a location >> ')
 
                 weather = wf.get_weather(location)    # Feeding location to the API via get_weather method
                 current_parsed = wf.parse_weather(weather)    # Parsing current weather data returned by API
@@ -51,8 +54,17 @@ def mainloop(wf: WeatherFlow) -> None:
         print('\nKeyboard interrupt detected, exiting program ')
 
 def main():
+    # Parse command line args
+    parser = argparse.ArgumentParser(description='CLI based weather app that displays current weather and 3 day forecast for a given location')
+    parser.add_argument(
+        '-l', '--location',
+        type=str,
+        help='Specify the location to get the weather for, if not specified, the program will prompt you for a location'
+    )
+    args = parser.parse_args()
+
     wf = WeatherFlow()
-    mainloop(wf)
+    mainloop(wf, args.location)
 
 if __name__ == '__main__':
     main()
