@@ -9,6 +9,8 @@ Docs are pretty extensive because I want to be able to understand what I was doi
 Author: @PeterVislocky
 '''
 #TODO add a command line option to specify farhenheit or celsius
+#TODO add a bunch of other options for things like verbose output, sunset times, alerts (which would involve editing the backend script to 
+# accept that as a parameter), etc
 
 def mainloop(wf: WeatherFlow, location: str = None) -> None:
     '''
