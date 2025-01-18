@@ -71,15 +71,22 @@ class WeatherFlow:
         # Retreiving items from dictionary returned from API and returning them as a tuple
         name, region = location.get('name', 'Unknown'), location.get('region', 'Unknown')
         country = location.get('country', 'Unknown')
-        temp_c, temp_f = current.get('temp_c', 'Unknown temp'), current.get('temp_f', 'Unknown temp' )
         text = condition.get('text', 'Unknown condition') 
         icon = condition.get('icon', 'Icon unavailable')
-        feelslike_c, feelslike_f = current.get('feelslike_c', 'Unknown'), current.get('feelslike_f', 'Unknown')
+        
+        # Imperial data
+        temp_f = current.get('temp_f', 'Unknown temp' )
+        feelslike_f = current.get('feelslike_f', 'Unknown')
         wind_mph = current.get('wind_mph', 'Wind speed unknown')
 
-        return name, region, country, temp_c, temp_f, text, icon, feelslike_c, feelslike_f, wind_mph
+        # Metric data
+        temp_c = current.get('temp_c', 'Unknown temp')
+        feelslike_c =  current.get('feelslike_c', 'Unknown')
+        wind_kph = current.get('wind_kph', 'Wind speed unknown')
+
+        return name, region, country, text, icon, temp_f, feelslike_f, wind_mph, temp_c, feelslike_c, wind_kph
     
-    def parse_forecast(self, forcast: dict) -> None:
+    def parse_forecast(self, forcast: dict, metric: bool = False) -> None:
         '''
         Parses forcast for the week from the API call, loops through values and prints to console.
         Params: Expects json object that is returned from API call in get_weather.
@@ -91,10 +98,16 @@ class WeatherFlow:
             date = day.get('date', 'Date unavailable')
             day_of_week = WeatherFlow._get_day_of_week(date)    # Getting day of week from date
             condition = day.get('day', {}).get('condition', {}).get('text', 'Condition not available')
-            maxtemp_f, mintemp_f = day.get('day', {}).get('maxtemp_f'), day.get('day', {}).get('mintemp_f')
-            avgtemp_f = day.get('day', {}).get('avgtemp_f')
+            if not metric:
+                maxtemp_f, mintemp_f = day.get('day', {}).get('maxtemp_f'), day.get('day', {}).get('mintemp_f')
+                avgtemp_f = day.get('day', {}).get('avgtemp_f')
 
-            print(f'Forecast for {day_of_week}, {date} >> {condition}: {maxtemp_f}\u00b0F/{mintemp_f}\u00b0F Avg: {avgtemp_f}\u00b0F \n')
+                print(f'Forecast for {day_of_week}, {date} >> {condition}: {maxtemp_f}\u00b0F/{mintemp_f}\u00b0F Avg: {avgtemp_f}\u00b0F \n')
+            else:
+                maxtemp_c, mintemp_c = day.get('day', {}).get('maxtemp_c'), day.get('day', {}).get('mintemp_c')
+                avgtemp_c = day.get('day', {}).get('avgtemp_c')
+
+                print(f'Forecast for {day_of_week}, {date} >> {condition}: {maxtemp_c}\u00b0C/{mintemp_c}\u00b0C Avg: {avgtemp_c}\u00b0C \n')
 
     @staticmethod
     def _get_day_of_week(date: str) -> str:

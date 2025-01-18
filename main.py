@@ -1,5 +1,6 @@
 import requests
 import argparse
+import sys
 
 from weather.weather_flow import WeatherFlow
 from weather.ASCIIicons import ascii_icon
@@ -8,11 +9,10 @@ from weather.ASCIIicons import ascii_icon
 Docs are pretty extensive because I want to be able to understand what I was doing when I come back to this code in the future, and also to help others understand what I was doing
 Author: @PeterVislocky
 '''
-#TODO add a command line option to specify farhenheit or celsius
 #TODO add a bunch of other options for things like verbose output, sunset times, alerts (which would involve editing the backend script to 
 # accept that as a parameter), etc
 
-def mainloop(wf: WeatherFlow, location: str = None) -> None:
+def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False) -> None:
     '''
     Main program logic
     Params: WeatherFlow object instance
@@ -27,19 +27,26 @@ def mainloop(wf: WeatherFlow, location: str = None) -> None:
                 current_parsed = wf.parse_weather(weather)    # Parsing current weather data returned by API
               
                 # Assigned values returned from parse_weather and parse_forecast
-                name, region, country, temp_c, temp_f, text, icon, feelslike_c, feelslike_f, wind_mph = current_parsed
+                name, region, country, text, icon, temp_f, feelslike_f, wind_mph, temp_c, feelslike_c, wind_kph = current_parsed
                 
                 # print('Full JSON response: ', weather)    # For debugging
-                print( f'Showing weather for {name}, {region}{', ' + country if country != 'United States of America' else ''}\n'
-                      f'Temp >> {temp_f}\u00b0F / {temp_c}\u00b0C\n'
-                      f'Feels like >> {feelslike_f}\u00b0F / {feelslike_c}\u00b0C\n'
-                      f'Wind >> {wind_mph}mph\n'
-                      f'Conditions >> {text} ')
+                
+                # Formatting values to be displayed in the console
+                country_format = f', {country}' if country != 'United States of America' else ''
+                temp_format = f'{temp_f}\u00b0F' if not metric else f'{temp_c}\u00b0C'
+                feelslike_format = f'{feelslike_f}\u00b0F' if not metric else f'{feelslike_c}\u00b0C'
+                wind_format = f'{wind_mph} mph' if not metric else f'{wind_kph} kph'
+
+                print(f'Showing weather for {name}, {region}{country_format}\n'
+                      f'Temp >> {temp_format}\n'
+                      f'Feels like >> {feelslike_format}\n'
+                      f'Wind >> {wind_format}\n'
+                      f'Conditions >> {text}')
                 ascii_icon(icon)
                
                 # Call parse_weather to loop through forecast values and print to console
                 print('3 day forecast\n')
-                wf.parse_forecast(weather)
+                wf.parse_forecast(weather, metric)
                 break
 
             except ValueError as e:
@@ -63,10 +70,30 @@ def main():
         type=str,
         help='Specify the location to get the weather for, if not specified, the program will prompt you for a location'
     )
+    parser.add_argument(
+        '-m', '--metric',
+        action='store_true',
+        help='Displays units in metric (default is imperial)'
+    )
+    parser.add_argument(
+        '-i', '--imperial',
+        action='store_true',
+        help='Displays units in imperial (this is the default behavior)'
+    )
     args = parser.parse_args()
 
+    # Ensure user doesn't set metric and imperial flags at the same time
+    if args.metric and args.imperial:
+        print('Error: You cannot set both --metric and --imperial flags at the same time')
+        sys.exit(1)
+
+    # If imperial flag is set just set metric to false instead of args.metric, which would be true if the metric flag is set
+    metric = args.metric
+    if args.imperial:
+        metric = False
+
     wf = WeatherFlow()
-    mainloop(wf, args.location)
+    mainloop(wf, args.location, metric)
 
 if __name__ == '__main__':
     main()
