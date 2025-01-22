@@ -6,10 +6,9 @@ from weather.weather_flow import WeatherFlow
 from weather.ASCIIicons import ascii_icon
 
 '''
-Docs are pretty extensive because I want to be able to understand what I was doing when I come back to this code in the future, and also to help others understand what I was doing
+CLI based weather app that shows weather, plus forecast for given area, supports metric and imperial units
 Author: @PeterVislocky
 '''
-#TODO update error handling to be more specific, particularly for catching NoneType errors that occur when the location does not exist so the api returns None
 #TODO add a bunch of other options for things like verbose output, sunset times, alerts (which would involve editing the backend script to 
 # accept that as a parameter), etc
 
@@ -23,10 +22,9 @@ def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False) -> Non
             if location is None:    
                 location = input('Enter a location >> ')
 
-            weather = wf.get_weather(location)    # Feeding location to the API via get_weather method
-            current_parsed = wf.parse_weather(weather)    # Parsing current weather data returned by API
+            weather = wf.get_weather(location)
+            current_parsed = wf.parse_weather(weather)
             
-            # Assigned values returned from parse_weather and parse_forecast
             name, region, country, text, icon, temp_f, feelslike_f, wind_mph, temp_c, feelslike_c, wind_kph = current_parsed
             
             # print('Full JSON response: ', weather)    # For debugging
@@ -44,7 +42,6 @@ def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False) -> Non
                     f'Conditions >> {text}')
             ascii_icon(icon)
             
-            # Call parse_weather to loop through forecast values and print to console
             print('3 day forecast\n')
             wf.parse_forecast(weather, metric)
 
@@ -58,7 +55,7 @@ def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False) -> Non
         except Exception as e:
             print(f'Unexpected error occured: {e}')
             
-    except KeyboardInterrupt as k:
+    except KeyboardInterrupt as e:
         print('\nKeyboard interrupt detected, exiting program ')
 
 def main():
@@ -80,13 +77,12 @@ def main():
         help='Displays units in imperial (this is the default behavior)'
     )
     args = parser.parse_args()
-
-    # Ensure user doesn't set metric and imperial flags at the same time
+ 
     if args.metric and args.imperial:
         print('Error: You cannot set both --metric and --imperial flags at the same time')
         sys.exit(1)
 
-    # If imperial flag is set just set metric to false instead of args.metric, which would be true if the metric flag is set
+    # If imperial flag is set, I'm just setting metric to false instead of args.metric, which would be true if the metric flag is set
     metric = args.metric
     if args.imperial:
         metric = False

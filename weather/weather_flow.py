@@ -39,18 +39,14 @@ class WeatherFlow:
         EC2_URL = 'http://ec2-3-129-211-177.us-east-2.compute.amazonaws.com:8000/weather'
 
         try:
-            # Payload to send to the server
             payload = {
                 'location' : location
             }
 
-            # Make request
             response = requests.post(EC2_URL, json=payload)
-
-            # Raise an exception for HTTP errors
             response.raise_for_status()
-
             return response.json()
+        
         except requests.exceptions.RequestException as e:
             print(f'Request error occured: {e}')
             return None
@@ -100,7 +96,7 @@ class WeatherFlow:
         # Loop through the list value linked to the key, 'forecastday' in the api response and store needed values
         for day in forcast_days:
             date = day.get('date', 'Date unavailable')
-            day_of_week = WeatherFlow._get_day_of_week(date)    # Getting day of week from date
+            day_of_week = WeatherFlow._get_day_of_week(date)
             condition = day.get('day', {}).get('condition', {}).get('text', 'Condition not available')
             if not metric:
                 maxtemp_f, mintemp_f = day.get('day', {}).get('maxtemp_f'), day.get('day', {}).get('mintemp_f')

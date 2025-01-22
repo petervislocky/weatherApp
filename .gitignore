@@ -2,3 +2,5 @@ venv/
 weather/__pycache__/
 __pycache__/
 *.pyc
+/build/weather
+weather.spec
