@@ -85,6 +85,20 @@ class WeatherFlow:
             wind_kph = current.get('wind_kph', 'Wind speed unknown')
 
             return name, region, country, text, icon, temp_f, feelslike_f, wind_mph, temp_c, feelslike_c, wind_kph
+        
+    def verbose_weather(self, weather: dict) -> None:
+        '''
+        Grabs the extra values from the API response that will be included in verbose output.
+        Params: Expects json object that is returned from API call in get_weather.
+        '''
+        if weather is None:
+            raise ValueError('Check that location is valid and try again')
+        alerts = weather.get('alerts', [])
+        current = weather.get('current', {})
+        
+        air_quality = current.get('air_quality', {})
+        # TODO finish this method
+
     
     def parse_forecast(self, forcast: dict, metric: bool = False) -> None:
         '''

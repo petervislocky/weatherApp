@@ -12,7 +12,7 @@ Author: @PeterVislocky
 #TODO add a bunch of other options for things like verbose output, sunset times, alerts (which would involve editing the backend script to 
 # accept that as a parameter), etc
 
-def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False) -> None:
+def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False, verbose: bool = False) -> None:
     '''
     Main program logic
     Params: WeatherFlow object instance
@@ -75,6 +75,11 @@ def main():
         '-i', '--imperial',
         action='store_true',
         help='Displays units in imperial (this is the default behavior)'
+    )
+    parser.add_argument(
+        '-v', '--verbose',
+        action='store_true',
+        help='Displays verbose output'
     )
     args = parser.parse_args()
  
