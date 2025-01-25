@@ -64,6 +64,7 @@ def main():
     parser.add_argument(
         '-l', '--location',
         type=str,
+        metavar='<location>',
         help='Specify the location to get the weather for, if not specified, the program will prompt you for a location'
     )
     parser.add_argument(
