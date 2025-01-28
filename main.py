@@ -29,6 +29,7 @@ def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False, verbos
             
             # print('Full JSON response: ', weather)    # For debugging
             
+            # Standard output
             # Formatting values to be displayed in the console
             country_format = f', {country}' if country != 'United States of America' else ''
             temp_format = f'{temp_f}\u00b0F' if not metric else f'{temp_c}\u00b0C'
@@ -40,6 +41,7 @@ def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False, verbos
                     f'Feels like >> {feelslike_format}\n'
                     f'Wind >> {wind_format}\n'
                     f'Conditions >> {text}')
+            # Verbose output goes here
             ascii_icon(icon)
             
             print('3 day forecast\n')
@@ -77,6 +79,7 @@ def main():
         action='store_true',
         help='Displays units in imperial (this is the default behavior)'
     )
+    # Not implemented yet
     parser.add_argument(
         '-v', '--verbose',
         action='store_true',

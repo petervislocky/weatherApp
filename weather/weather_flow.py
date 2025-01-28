@@ -51,7 +51,7 @@ class WeatherFlow:
             print(f'Request error occured: {e}')
             return None
 
-    def parse_weather(self, weather: dict) -> tuple[str, str, float, float, str, str, float, float, float]:
+    def parse_weather(self, weather: dict) -> tuple[str, str, str, str, str, str, str, str, str, str, str]:
         '''
         Parses weather dictionary from API and returns extracted data.
         Params: Expects json that is returned from API call made in get_weather.
@@ -63,10 +63,6 @@ class WeatherFlow:
             location = weather.get('location', {})
             current =  weather.get('current', {})
             condition = current.get('condition', {})
-
-            # Checks if location data is missing
-            if location is None or current is None or condition is None:
-                raise ValueError('Weather data from API was returned improperly, and cannot be parsed as expected')
 
             # Retreiving items from dictionary returned from API and returning them as a tuple
             name, region = location.get('name', 'Unknown'), location.get('region', 'Unknown')
@@ -86,18 +82,39 @@ class WeatherFlow:
 
             return name, region, country, text, icon, temp_f, feelslike_f, wind_mph, temp_c, feelslike_c, wind_kph
         
-    def verbose_weather(self, weather: dict) -> None:
+    def verbose_weather(self, weather: dict) -> tuple[str, str, str, str, str, str, str, str, str, str, str, str, str, str, str]:
         '''
         Grabs the extra values from the API response that will be included in verbose output.
         Params: Expects json object that is returned from API call in get_weather.
         '''
         if weather is None:
             raise ValueError('Check that location is valid and try again')
-        alerts = weather.get('alerts', [])
         current = weather.get('current', {})
-        
         air_quality = current.get('air_quality', {})
-        # TODO finish this method
+
+        
+        humidity = current.get('humidity', 'Humidity unavailable')
+        uv = current.get('uv', 'UV index unavailable')
+        aqi = air_quality.get('us-epa-index', 'Air quality index unavaialble')
+
+        # Imperial values
+        precip_in = current.get('precip_in', 'Precipitation unavailable')
+        dewpoint_f = current.get('dewpoint_f', 'Dewpoint unavailable')
+        vis_miles = current.get('vis_miles', 'Visibility unavailable')
+        windchill_f = current.get('windchill_f', 'Windchill unavailable')
+        heatindex_f = current.get('heatindex_f', 'Heat index unavailable')
+        gust_mph = current.get('gust_mph', 'Wind gust unavailable')
+
+        # Metric values
+        precip_mm = current.get('precip_mm', 'Precipitation unavailable')
+        dewpoint_c = current.get('dewpoint_c', 'Dewpoint unavailable')
+        vis_km = current.get('vis_km', 'Visibility unavailable')
+        windchill_c = current.get('windchill_c', 'Windchill unavailable')
+        heatindex_c = current.get('heatindex_c', 'Heat index unavailable')
+        gust_kph = current.get('gust_kph', 'Wind gust unavailable')
+        
+        return humidity, uv, aqi, precip_in, dewpoint_f, vis_miles, windchill_f, heatindex_f, gust_mph, precip_mm, dewpoint_c, vis_km, windchill_c, heatindex_c, gust_kph
+        
 
     
     def parse_forecast(self, forcast: dict, metric: bool = False) -> None:
