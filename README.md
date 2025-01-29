@@ -17,15 +17,18 @@ The program is meant to be added to PATH so that it can be called from anywhere 
 3. Once the file is added to path you can run the program from anywhere in your terminal by typing the name of the program, "weather"!
     - Note: if you choose not to add the program to PATH, you will need to be in the directory you downloaded the program into in order to run it
 
-### Mac/Linux
+### Mac
 For right now you guys will need to clone the repo and have python installed to use this
-1. Make sure you have Git and Python 3.12 installed
-2. In the terminal run `git clone https://github.com/petervislocky/weatherApp/tree/v1.0.0`
+1. Make sure you have Git and Python >= 3.12 installed
+2. In the terminal run `git clone https://github.com/petervislocky/weatherApp`
 3. Cd into the project directory and run `python main.py`
 4. To create a working exe file (so you can use the program as intended), use pip to install pyinstaller, and in the project directory run `pyinstaller --onefile --name weather main.py`
 5. Add the exe file to PATH and enjoy!
 
+### Linux
+Linux exe file is located in /dist_linux. Download and add to path (if you're daily driving Linux I imagine I don't need to include instructions to add to path:)), for now `--update` flag WILL replace your exe file with an exe compiled for windows and will break the program so until I fix that I suggest not running that. I'm working to make the update file cross compatable at the moment and will update this when I do. 
+
 ## Usage
 Supports the `-l` or `--location` flag, use this option to specify the location to show the weather for. If not specified the program will just prompt you for the location.
-`-m` or `--metric` flag converts all output units to metric, conversely the `-i` or `--imperial` flag is used for imperial units *however* imperial units is the default so this flag is unnecessary and is just there for clarity's sake.
+`-m` or `--metric` flag converts all output units to metric, conversely the `-i` or `--imperial` flag is used for imperial units *however* imperial units is the default so this flag is unnecessary and is just there for clarity's sake. `-v` or `--verbose` flag is used for verbose output, and `--update` is used to update to the latest release of the project. For now `--update` is only supported for Windows.
 Hope you enjoy!
