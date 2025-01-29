@@ -1,9 +1,11 @@
 import requests
 import argparse
 import sys
+import subprocess
 
 from weather.weather_flow import WeatherFlow
 from weather.ASCIIicons import ascii_icon
+from update import update
 
 '''
 CLI based weather app that shows weather, plus forecast for given area, supports metric and imperial units
@@ -104,11 +106,20 @@ def main():
         action='store_true',
         help='Displays verbose output'
     )
+    parser.add_argument(
+        '--update',
+        action='store_true',
+        help='Updates the application to the latest version from github'
+    )
     args = parser.parse_args()
  
     if args.metric and args.imperial:
         print('Error: You cannot set both --metric and --imperial flags at the same time')
         sys.exit(1)
+
+    if args.update:
+        subprocess.run([sys.executable, 'update/update.py'])
+        sys.exit(0)
 
     # If imperial flag is set, I'm just setting metric to false instead of args.metric, which would be true if the metric flag is set
     metric = args.metric
