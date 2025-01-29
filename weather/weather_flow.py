@@ -138,7 +138,7 @@ class WeatherFlow:
                 maxtemp_c, mintemp_c = day.get('day', {}).get('maxtemp_c'), day.get('day', {}).get('mintemp_c')
                 avgtemp_c = day.get('day', {}).get('avgtemp_c')
 
-                print(f'Forecast for {day_of_week}, {date} >> {condition}: {maxtemp_c}\u00b0C/{mintemp_c}\u00b0C Avg: {avgtemp_c}\u00b0C \n')
+                print(f'Forecast for {day_of_week}, {date} >> {condition}: {maxtemp_c}\u00b0C/{mintemp_c}\u00b0C Avg : {avgtemp_c}\u00b0C \n')
 
     @staticmethod
     def _get_day_of_week(date: str) -> str:

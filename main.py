@@ -41,7 +41,27 @@ def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False, verbos
                     f'Feels like >> {feelslike_format}\n'
                     f'Wind >> {wind_format}\n'
                     f'Conditions >> {text}')
-            # Verbose output goes here
+            # Verbose output
+            if verbose:
+                humidity, uv, aqi, precip_in, dewpoint_f, vis_miles, windchill_f, heatindex_f, gust_mph, precip_mm, dewpoint_c, vis_km, windchill_c, heatindex_c, gust_kph = wf.verbose_weather(weather)
+                
+                # Format values for metric or imperial
+                precip_format = f'{precip_in}in' if not metric else f'{precip_mm}mm'
+                dewpoint_format = f'{dewpoint_f}\u00b0F' if not metric else f'{dewpoint_c}\u00b0C'
+                vis_format = f'{vis_miles} miles' if not metric else f'{vis_km} km'
+                windchill_format = f'{windchill_f}\u00b0F' if not metric else f'{windchill_c}\u00b0C'
+                heatindex_format = f'{heatindex_f}\u00b0F' if not metric else f'{heatindex_c}\u00b0C'
+                gust_format = f'{gust_mph} mph' if not metric else f'{gust_kph} kph'
+
+                print(f'Gust >> {gust_format}\n'
+                      f'Windchill >> {windchill_format}\n'
+                      f'Humidity >> {humidity}\n'
+                      f'UV Index >> {uv}\n'
+                      f'Air Quality Index >> {aqi}\n'
+                      f'Precipitation >> {precip_format}\n'
+                      f'Dewpoint >> {dewpoint_format}\n'
+                      f'Visibility >> {vis_format}\n'
+                      f'Heat Index >> {heatindex_format}\n')
             ascii_icon(icon)
             
             print('3 day forecast\n')
@@ -79,7 +99,6 @@ def main():
         action='store_true',
         help='Displays units in imperial (this is the default behavior)'
     )
-    # Not implemented yet
     parser.add_argument(
         '-v', '--verbose',
         action='store_true',
@@ -97,7 +116,7 @@ def main():
         metric = False
 
     wf = WeatherFlow()
-    mainloop(wf, args.location, metric)
+    mainloop(wf, args.location, metric, args.verbose)
 
 if __name__ == '__main__':
     main()
