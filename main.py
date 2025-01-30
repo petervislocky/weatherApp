@@ -116,17 +116,17 @@ def main():
         print('Error: You cannot set both --metric and --imperial flags at the same time')
         sys.exit(1)
 
-    if args.update:
-        subprocess.run([sys.executable, 'update/update.py'])
-        sys.exit(0)
-
     # If imperial flag is set, I'm just setting metric to false instead of args.metric, which would be true if the metric flag is set
     metric = args.metric
     if args.imperial:
         metric = False
 
-    wf = WeatherFlow()
-    mainloop(wf, args.location, metric, args.verbose)
+    if args.update:
+        update.update()
+        sys.exit(0)
+    else:
+        wf = WeatherFlow()
+        mainloop(wf, args.location, metric, args.verbose)
 
 if __name__ == '__main__':
     main()
