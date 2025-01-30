@@ -11,8 +11,7 @@ from update import update
 CLI based weather app that shows weather, plus forecast for given area, supports metric and imperial units
 Author: @PeterVislocky
 '''
-#TODO add a bunch of other options for things like verbose output, sunset times, alerts (which would involve editing the backend script to 
-# accept that as a parameter), etc
+#TODO fix broken update feature, currently only works when running from source which isn't very useful
 
 def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False, verbose: bool = False) -> None:
     '''
