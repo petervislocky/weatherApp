@@ -1,11 +1,9 @@
 import requests
 import argparse
 import sys
-import subprocess
 
 from weather.weather_flow import WeatherFlow
 from weather.ASCIIicons import ascii_icon
-from update import update
 
 '''
 CLI based weather app that shows weather, plus forecast for given area, supports metric and imperial units
