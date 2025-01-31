@@ -26,7 +26,7 @@ For right now you guys will need to clone the repo and have python installed to 
 5. Add the exe file to PATH and enjoy!
 
 ### Linux
-Linux exe file is located in /dist_linux. Download and add to path (if you're daily driving Linux I imagine I don't need to include instructions to add to path:)), for now `--update` flag WILL replace your exe file with an exe compiled for windows and will break the program so until I fix that I suggest not running that. I'm working to make the update file cross compatable at the moment and will update this when I do. 
+Linux exe file is located in /dist_linux. Download and add to path (if you're daily driving Linux I imagine I don't need to include instructions to add to path:)).
 
 ## Usage
 Supports the `-l` or `--location` flag, use this option to specify the location to show the weather for. If not specified the program will just prompt you for the location.
