@@ -105,11 +105,6 @@ def main():
         action='store_true',
         help='Displays verbose output'
     )
-    parser.add_argument(
-        '--update',
-        action='store_true',
-        help='Updates the application to the latest version from github'
-    )
     args = parser.parse_args()
  
     if args.metric and args.imperial:
@@ -120,13 +115,8 @@ def main():
     metric = args.metric
     if args.imperial:
         metric = False
-
-    if args.update:
-        update.update()
-        sys.exit(0)
-    else:
-        wf = WeatherFlow()
-        mainloop(wf, args.location, metric, args.verbose)
-
+    
+    wf = WeatherFlow()
+    mainloop(wf, args.location, metric, args.verbose)
 if __name__ == '__main__':
     main()
