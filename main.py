@@ -53,7 +53,7 @@ def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False, verbos
 
                 print(f'Gust >> {gust_format}\n'
                       f'Windchill >> {windchill_format}\n'
-                      f'Humidity >> {humidity}\n'
+                      f'Humidity >> {humidity}%\n'
                       f'UV Index >> {uv}\n'
                       f'Air Quality Index >> {aqi}\n'
                       f'Precipitation >> {precip_format}\n'
