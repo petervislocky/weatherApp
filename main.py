@@ -29,12 +29,13 @@ def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False, verbos
             
             # Standard output
             # Formatting values to be displayed in the console
-            country_format = f', {country}' if country != 'United States of America' else ''
+            region_format = f'{region}, ' if region != '' else ''
+            country_format = f'{country}' if country != 'United States of America' else ''
             temp_format = f'{temp_f}\u00b0F' if not metric else f'{temp_c}\u00b0C'
             feelslike_format = f'{feelslike_f}\u00b0F' if not metric else f'{feelslike_c}\u00b0C'
             wind_format = f'{wind_mph} mph' if not metric else f'{wind_kph} kph'
 
-            print(f'Showing weather for {name}, {region}{country_format}\n'
+            print(f'Showing weather for {name}, {region_format}{country_format}\n'
                     f'Temp >> {temp_format}\n'
                     f'Feels like >> {feelslike_format}\n'
                     f'Wind >> {wind_format}\n'
@@ -53,13 +54,13 @@ def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False, verbos
 
                 print(f'Gust >> {gust_format}\n'
                       f'Windchill >> {windchill_format}\n'
+                      f'Heat Index >> {heatindex_format}\n'
                       f'Humidity >> {humidity}%\n'
                       f'UV Index >> {uv}\n'
                       f'Air Quality Index >> {aqi}\n'
                       f'Precipitation >> {precip_format}\n'
                       f'Dewpoint >> {dewpoint_format}\n'
-                      f'Visibility >> {vis_format}\n'
-                      f'Heat Index >> {heatindex_format}\n')
+                      f'Visibility >> {vis_format}\n')
             ascii_icon(icon)
             
             print('3 day forecast\n')
