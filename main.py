@@ -31,8 +31,8 @@ def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False, verbos
             # Formatting values to be displayed in the console
             region_format = f'{region}, ' if region != '' else ''
             country_format = f'{country}' if country != 'United States of America' else ''
-            temp_format = f'{temp_f}\u00b0F' if not metric else f'{temp_c}\u00b0C'
-            feelslike_format = f'{feelslike_f}\u00b0F' if not metric else f'{feelslike_c}\u00b0C'
+            temp_format = f'{temp_f}\N{DEGREE SIGN}F' if not metric else f'{temp_c}\N{DEGREE SIGN}C'
+            feelslike_format = f'{feelslike_f}\N{DEGREE SIGN}F' if not metric else f'{feelslike_c}\N{DEGREE SIGN}C'
             wind_format = f'{wind_mph} mph' if not metric else f'{wind_kph} kph'
 
             print(f'Showing weather for {name}, {region_format}{country_format}\n'
@@ -46,10 +46,10 @@ def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False, verbos
                 
                 # Format values for metric or imperial
                 precip_format = f'{precip_in}in' if not metric else f'{precip_mm}mm'
-                dewpoint_format = f'{dewpoint_f}\u00b0F' if not metric else f'{dewpoint_c}\u00b0C'
+                dewpoint_format = f'{dewpoint_f}\N{DEGREE SIGN}F' if not metric else f'{dewpoint_c}\N{DEGREE SIGN}C'
                 vis_format = f'{vis_miles} miles' if not metric else f'{vis_km} km'
-                windchill_format = f'{windchill_f}\u00b0F' if not metric else f'{windchill_c}\u00b0C'
-                heatindex_format = f'{heatindex_f}\u00b0F' if not metric else f'{heatindex_c}\u00b0C'
+                windchill_format = f'{windchill_f}\N{DEGREE SIGN}F' if not metric else f'{windchill_c}\N{DEGREE SIGN}C'
+                heatindex_format = f'{heatindex_f}\N{DEGREE SIGN}F' if not metric else f'{heatindex_c}\N{DEGREE SIGN}C'
                 gust_format = f'{gust_mph} mph' if not metric else f'{gust_kph} kph'
 
                 print(f'Gust >> {gust_format}\n'
