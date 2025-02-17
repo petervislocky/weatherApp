@@ -10,7 +10,7 @@ CLI based weather app that shows weather, plus forecast for given area, supports
 Author: @PeterVislocky
 '''
 
-def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False, verbose: bool = False) -> None:
+def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False, verbose: bool = False, forecast: bool = False) -> None:
     '''
     Main program logic
     Params: WeatherFlow object instance
@@ -62,9 +62,10 @@ def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False, verbos
                       f'Dewpoint >> {dewpoint_format}\n'
                       f'Visibility >> {vis_format}\n')
             ascii_icon(icon)
-            
-            print('3 day forecast\n')
-            wf.parse_forecast(weather, metric)
+
+            if forecast: 
+                print('3 day forecast\n')
+                wf.parse_forecast(weather, metric)
 
         except ValueError as e:
             print(f'Data error: {e}')
@@ -103,6 +104,11 @@ def main():
         action='store_true',
         help='Displays verbose output'
     )
+    parser.add_argument(
+        '-f', '--forecast',
+        action='store_true',
+        help='Enables three day forecast'
+    )
     args = parser.parse_args()
  
     if args.metric and args.imperial:
@@ -115,6 +121,6 @@ def main():
         metric = False
     
     wf = WeatherFlow()
-    mainloop(wf, args.location, metric, args.verbose)
+    mainloop(wf, args.location, metric, args.verbose, args.forecast)
 if __name__ == '__main__':
     main()
