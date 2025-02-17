@@ -31,4 +31,4 @@ Same deal as windows, compiled file is located in the releases tab. Either downl
 ## Usage
 Supports the `-l` or `--location` flag, use this option to specify the location to show the weather for. If not specified the program will just prompt you for the location.
 `-m` or `--metric` flag converts all output units to metric, conversely the `-i` or `--imperial` flag is used for imperial units *however* imperial units is the default so this flag is unnecessary and is just there for clarity's sake. `-v` or `--verbose` flag is used for verbose output. And `f` or `--forecast` flag will display a 3 day forecast.
-Hope you enjoy!
+Hope you enjoy! And if you like it, leave a star ;)
