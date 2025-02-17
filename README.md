@@ -26,9 +26,9 @@ For right now you guys will need to clone the repo and have python installed to 
 5. Add the exe file to PATH and enjoy!
 
 ### Linux
-Linux exe file is located in /dist_linux. Download and add to path (if you're daily driving Linux I imagine I don't need to include instructions to add to path:)).
+Same deal as windows, compiled file is located in the releases tab. Either download the file into a directory already in $PATH or add a line into your .bashrc file adding the project to $PATH.
 
 ## Usage
 Supports the `-l` or `--location` flag, use this option to specify the location to show the weather for. If not specified the program will just prompt you for the location.
-`-m` or `--metric` flag converts all output units to metric, conversely the `-i` or `--imperial` flag is used for imperial units *however* imperial units is the default so this flag is unnecessary and is just there for clarity's sake. `-v` or `--verbose` flag is used for verbose output.
+`-m` or `--metric` flag converts all output units to metric, conversely the `-i` or `--imperial` flag is used for imperial units *however* imperial units is the default so this flag is unnecessary and is just there for clarity's sake. `-v` or `--verbose` flag is used for verbose output. And `f` or `--forecast` flag will display a 3 day forecast.
 Hope you enjoy!
