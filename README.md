@@ -10,7 +10,7 @@ The program is meant to be added to PATH so that it can be called from anywhere 
 2. Add file to PATH by doing the following: 
     - Search "Environment variables" in the search box and click on "edit the system environment variables"
     - Click the button at the bottom that says "Environment Variables"
-    - Under "User variables for <YourUserName>" click on the variable called "Path"
+    - Under "User variables for `<YourUserName>` click on the variable called "Path"
     - While "Path" is highlighted, click the button that says "edit"
     - Click the button that says "New" 
     - Copy the path of the location where you installed this program and paste it into the empty box that shows up when you press "New"
