@@ -75,7 +75,7 @@ def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False, verbos
                     'No internet connection\n'
                     'Server-side errors')
         except Exception as e:
-            print(f'Unexpected error occured: {e}')
+            print(f'Unexpected error occurred: {e}')
             
     except KeyboardInterrupt as e:
         print('\nKeyboard interrupt detected, exiting program ')

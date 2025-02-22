@@ -48,7 +48,7 @@ class WeatherFlow:
             return response.json()
         
         except requests.exceptions.RequestException as e:
-            print(f'Request error occured: {e}')
+            print(f'Request error occurred: {e}')
             return None
 
     def parse_weather(self, weather: dict) -> tuple[str, str, str, str, str, str, str, str, str, str, str]:
@@ -64,7 +64,7 @@ class WeatherFlow:
             current =  weather.get('current', {})
             condition = current.get('condition', {})
 
-            # Retreiving items from dictionary returned from API and returning them as a tuple
+            # Retrieving items from dictionary returned from API and returning them as a tuple
             name, region = location.get('name', 'Unknown'), location.get('region', 'Unknown')
             country = location.get('country', 'Unknown')
             text = condition.get('text', 'Unknown condition') 
@@ -95,7 +95,7 @@ class WeatherFlow:
         
         humidity = current.get('humidity', 'Humidity unavailable')
         uv = current.get('uv', 'UV index unavailable')
-        aqi = air_quality.get('us-epa-index', 'Air quality index unavaialble')
+        aqi = air_quality.get('us-epa-index', 'Air quality index unavailable')
 
         # Imperial values
         precip_in = current.get('precip_in', 'Precipitation unavailable')
