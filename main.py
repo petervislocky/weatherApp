@@ -5,16 +5,16 @@ import sys
 from weather.weather_flow import WeatherFlow
 from weather.ASCIIicons import ascii_icon
 
-'''
+"""
 CLI based weather app that shows weather, plus forecast for given area, supports metric and imperial units
 Author: @PeterVislocky
-'''
+"""
 
 def mainloop(wf: WeatherFlow, location: str = None, metric: bool = False, verbose: bool = False, forecast: bool = False) -> None:
-    '''
+    """
     Main program logic
     Params: WeatherFlow object instance
-    '''
+    """
     try:
         try:
             if location is None:    

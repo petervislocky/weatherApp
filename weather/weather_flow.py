@@ -7,10 +7,10 @@ class WeatherFlow:
     def __init__(self):
         pass
 
-    def get_weather(self, location: str) -> dict[str, Any]:
-        '''
+    def get_weather(self, location: str) -> dict[str, Any] | None:
+        """
         Makes a request to aws EC2 server to make the api call and return a json/dictionary of the weather data in the given location.
-        
+
         Return type contains nested dictionaries and lists with str type keys
         Example return value structure:
             {
@@ -35,7 +35,7 @@ class WeatherFlow:
             "icon": "//cdn.weatherapi.com/weather/64x64/night/116.png",
             "code": 1003
         }, ...
-        '''
+        """
         EC2_URL = 'http://ec2-3-129-211-177.us-east-2.compute.amazonaws.com:8000/weather'
 
         try:
@@ -52,10 +52,10 @@ class WeatherFlow:
             return None
 
     def parse_weather(self, weather: dict) -> tuple[str, str, str, str, str, str, str, str, str, str, str]:
-        '''
+        """
         Parses weather dictionary from API and returns extracted data.
         Params: Expects json that is returned from API call made in get_weather.
-        '''
+        """
         # Checking if api actually returned data
         if weather is None:
             raise ValueError('Check that location is valid and try again')
@@ -83,10 +83,10 @@ class WeatherFlow:
             return name, region, country, text, icon, temp_f, feelslike_f, wind_mph, temp_c, feelslike_c, wind_kph
         
     def verbose_weather(self, weather: dict) -> tuple[str, str, str, str, str, str, str, str, str, str, str, str, str, str, str]:
-        '''
+        """
         Grabs the extra values from the API response that will be included in verbose output.
         Params: Expects json object that is returned from API call in get_weather.
-        '''
+        """
         if weather is None:
             raise ValueError('Check that location is valid and try again')
         current = weather.get('current', {})
@@ -118,10 +118,10 @@ class WeatherFlow:
 
     
     def parse_forecast(self, forcast: dict, metric: bool = False) -> None:
-        '''
+        """
         Parses forcast for the week from the API call, loops through values and prints to console.
         Params: Expects json object that is returned from API call in get_weather.
-        '''
+        """
         forcast_days = forcast.get('forecast', {}).get('forecastday', [])
 
         # Loop through the list value linked to the key, 'forecastday' in the api response and store needed values
@@ -142,7 +142,7 @@ class WeatherFlow:
 
     @staticmethod
     def _get_day_of_week(date: str) -> str:
-        '''
-        Helper method that returns day of the week from a day given in YYYY-MM-DD fromat
-        '''
+        """
+        Helper method that returns day of the week from a day given in YYYY-MM-DD format
+        """
         return datetime.strptime(date, '%Y-%m-%d').strftime('%A')
