@@ -3,7 +3,7 @@
     
 	- The EC2 instance that is responsible for making API calls is no longer in service, therefore, the only working version of this project now requires you to use the source code from the local-api branch and provide your own api key from https://www.weatherapi.com
     
-	- *❗THE PRECOMPILED VERSION IN RELEASES IS NO LONGER SUPPORTED❗*
+	- ❗THE PRECOMPILED VERSION IN RELEASES IS NO LONGER SUPPORTED❗
 ## Description
 This is a project I decided to create to learn more about using APIs and implementing web servers into projects. It is a pretty straightforward weather application intended for the command line. There are tons of weather apps and widgets with GUIs out there but I personally wanted a weather application with a customizable amount of detail that I could use to easily check the weather while I am working in the terminal. It uses weatherAPI.com for the weather data and to practice obscuring my api key, I set up an EC2 instance through AWS to host a web server that has the API key and makes the API call on the backend, returning the data to the front end for the user. This program is written pretty much entirely in Python on the front and backend.
 
